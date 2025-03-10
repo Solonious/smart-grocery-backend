@@ -9,6 +9,7 @@ src/
 coverage/
 tessdata/
 uploads/
+certs/
 # :earth_africa: Ігноруємо файли середовища (змінні)
 .env
 .env.local
