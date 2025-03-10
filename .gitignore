@@ -1,0 +1,26 @@
+# :package: Ігноруємо Node.js залежності
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+# :building_construction: Ігноруємо зібрані файли Angular
+dist/
+src/
+coverage/
+tessdata/
+uploads/
+# :earth_africa: Ігноруємо файли середовища (змінні)
+.env
+.env.local
+.env.development
+.env.production
+# :rocket: Ігноруємо файли VS Code
+.vscode/
+.idea/
+*.log
+# :hammer_and_wrench: Ігноруємо кеш Puppeteer (якщо є)
+.puppeteer-cache/
+# :zap: Ігноруємо Docker (якщо використовуєш)
+docker-compose.override.yml
+# :floppy_disk: Ігноруємо базу MongoDB (якщо є локальний дамп)
+dump/
