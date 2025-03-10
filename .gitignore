@@ -5,7 +5,6 @@ pnpm-lock.yaml
 yarn.lock
 # :building_construction: Ігноруємо зібрані файли Angular
 dist/
-src/
 coverage/
 tessdata/
 uploads/
