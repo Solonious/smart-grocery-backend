@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Product from "../models/product";
-import { fetchNovusProductsWithPuppeteer } from "../services/puppeteer";
+import { fetchNovusProductsWithPuppeteer } from "../services/fetch-novus-product-puppeteer";
 
 const CACHE_EXPIRATION_HOURS = 24; // :snowflake: Кеш оновлюється раз на 24 години
 
@@ -8,7 +8,7 @@ export const searchProducts = async (req: Request, res: Response) => {
   const query = req.query.query as string;
 
   if (!query) {
-    return res.status(400).json({ message: "Вкажіть запит для пошуку" });
+    return res.json([]);
   }
   try {
     console.log(`:mag: Шукаємо товари в базі: ${query}`);
@@ -33,14 +33,14 @@ export const searchProducts = async (req: Request, res: Response) => {
     }
 
     // Зберігаємо товари у базу
-    await Product.insertMany(
+    const insertedDocs = await Product.insertMany(
       novusProducts.map((p: any) => ({
         ...p,
         lastUpdated: new Date(),
       })),
       { ordered: false }
     ).catch((err) => console.error(":x: Помилка збереження в базу:", err));
-    res.json(novusProducts);
+    res.json(insertedDocs);
   } catch (error) {
     console.error(":x: Помилка отримання товарів:", error);
     res.status(500).json({ message: "Помилка отримання товарів" });

@@ -1,5 +1,5 @@
 import Product from "../models/product";
-import { fetchNovusProductsWithPuppeteer } from "./puppeteer";
+import { fetchNovusProductsWithPuppeteer } from "./fetch-novus-product-puppeteer";
 
 // Оновлення цін товарів
 const UPDATE_INTERVAL_HOURS = 24; // :snowflake: Оновлюємо товари раз на добу

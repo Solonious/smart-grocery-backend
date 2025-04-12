@@ -40,7 +40,7 @@ const startServer = async () => {
         app.listen(PORT, async () => {
             console.log(`:rocket: Server running on port ${PORT}`);
 
-            // await updateProductPrices();
+            await updateProductPrices();
         });
     } catch (error) {
         console.error(":x: Server Error", error);

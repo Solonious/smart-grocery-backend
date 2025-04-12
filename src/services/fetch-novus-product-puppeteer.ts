@@ -1,11 +1,4 @@
-import axios from "axios";
-import cheerio from "cheerio";
-import Product from "../models/product";
-import https from "https";
-import fs from "fs";
-import path from "path"; 
 import puppeteer from "puppeteer";
-
 
 export const fetchNovusProductsWithPuppeteer = async (query: string) => {
 
@@ -22,8 +15,6 @@ export const fetchNovusProductsWithPuppeteer = async (query: string) => {
     console.log(`:mag: Відкриваємо сторінку Novus: ${url}`);
   
     await page.goto(url, { waitUntil: "networkidle2" });
-
-    await page.waitForSelector(".ProductTile__imageContainer img");
   
     const products = await page.evaluate(() => {
       const items: any = [];
@@ -51,5 +42,4 @@ export const fetchNovusProductsWithPuppeteer = async (query: string) => {
     console.error(":x: Помилка парсингу Novus:", error);
     return [];
   }
-  
 };
