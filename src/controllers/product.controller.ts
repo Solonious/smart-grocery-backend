@@ -32,14 +32,18 @@ export const searchProducts = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Товари не знайдено" });
     }
 
-    // Зберігаємо товари у базу
-    const insertedDocs = await Product.insertMany(
-      novusProducts.map((p: any) => ({
-        ...p,
-        lastUpdated: new Date(),
-      })),
-      { ordered: false }
-    ).catch((err) => console.error(":x: Помилка збереження в базу:", err));
+    // Оновлюємо існуючі товари або додаємо нові
+    const insertedDocs = await Promise.all(
+      novusProducts.map(async (p: any) => {
+        const product = await Product.findOneAndUpdate(
+          { name: p.name, store: p.store },
+          { ...p, lastUpdated: new Date() },
+          { new: true, upsert: true }
+        );
+        return product;
+      })
+    );
+
     res.json(insertedDocs);
   } catch (error) {
     console.error(":x: Помилка отримання товарів:", error);

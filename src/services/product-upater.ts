@@ -17,9 +17,10 @@ export const updateProductPrices = async () => {
       const [updatedProduct] = await fetchNovusProductsWithPuppeteer(product.name);
 
       if (updatedProduct) {
-        await Product.updateOne(
-          { _id: product._id },
-          { price: updatedProduct.price, lastUpdated: new Date() }
+        await Product.findOneAndUpdate(
+          { name: product.name, store: product.store },
+          { price: updatedProduct.price, lastUpdated: new Date() },
+          { new: true }
         );
 
         console.log(`:white_check_mark: Оновлено: ${product.name} → ${updatedProduct.price}₴`);
